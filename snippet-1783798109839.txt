@@ -1,0 +1,32 @@
+# AI Chat + Image App
+
+A mobile-friendly single-page web app for:
+- AI text chat via OpenRouter-compatible chat completions
+- AI image generation via Hugging Face Inference API or Together API
+
+## Features
+
+- Single-page chat interface
+- Text chat input + send button
+- Separate image prompt input + generate button
+- Shared conversation/history feed
+- Text model selector
+- System prompt box
+- Temperature and max tokens controls
+- Image size selector
+- localStorage history persistence
+- Vercel deployable
+- API keys hidden behind Vercel serverless functions
+
+## Project Structure
+
+```txt
+api/
+  chat.js
+  image.js
+public/
+  index.html
+  style.css
+  script.js
+vercel.json
+README.md
