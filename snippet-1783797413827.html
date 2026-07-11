@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Chat + Image Studio</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <h1>AI Chat + Image</h1>
+        <p class="subtitle">Text and image generation in one feed</p>
+      </div>
+      <button id="clearBtn" class="ghost-btn">Clear</button>
+    </header>
+
+    <section class="controls">
+      <label>
+        Text Model
+        <select id="modelSelect">
+          <option value="openai/gpt-4o-mini">openai/gpt-4o-mini</option>
+          <option value="meta-llama/llama-3.1-8b-instruct">meta-llama/llama-3.1-8b-instruct</option>
+          <option value="mistralai/mistral-7b-instruct">mistralai/mistral-7b-instruct</option>
+          <option value="google/gemma-2-9b-it">google/gemma-2-9b-it</option>
+        </select>
+      </label>
+
+      <label>
+        System Prompt
+        <textarea id="systemPrompt" rows="3" placeholder="You are a helpful assistant."></textarea>
+      </label>
+
+      <div class="row two-cols">
+        <label>
+          Temperature
+          <input id="temperature" type="range" min="0" max="2" step="0.1" value="0.8" />
+          <span id="tempValue">0.8</span>
+        </label>
+
+        <label>
+          Max Tokens
+          <input id="maxTokens" type="number" min="64" max="4000" step="1" value="500" />
+        </label>
+      </div>
+
+      <div class="row two-cols">
+        <label>
+          Image Provider
+          <select id="imageProvider">
+            <option value="together">Together</option>
+            <option value="huggingface">Hugging Face</option>
+          </select>
+        </label>
+
+        <label>
+          Image Size
+          <select id="imageSize">
+            <option value="512x512">512x512</option>
+            <option value="768x768">768x768</option>
+            <option value="1024x1024">1024x1024</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <main id="chatFeed" class="chat-feed"></main>
+
+    <section class="composer">
+      <div class="input-group">
+        <label for="textInput">Text Chat</label>
+        <div class="input-row">
+          <input id="textInput" type="text" placeholder="Type your message..." />
+          <button id="sendBtn">Send</button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="imagePrompt">Image Prompt</label>
+        <div class="input-row">
+          <input id="imagePrompt" type="text" placeholder="Describe the image you want..." />
+          <button id="imageBtn">Generate</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
