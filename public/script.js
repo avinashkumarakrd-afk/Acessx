@@ -1,17 +1,14 @@
-// Ensure you have an element to track your button
-const sendBtn = document.getElementById('sendBtn').addEventListener('click', handleSend);
+console.log("Script loaded successfully!");
 
-async function handleSend() {
-    // 1. Match your HTML: id="textInput"
-    const inputField = document.getElementById('textInput'); 
-    const message = inputField.value;
+const sendBtn = document.getElementById('sendBtn');
+
+sendBtn.addEventListener('click', async () => {
+    alert("Button clicked!"); // 1. The immediate test
     
-    if (!message) return;
+    const inputField = document.getElementById('user-input');
+    const message = inputField.value;
 
-    // 2. Match your HTML: id="sendBtn"
-    const sendBtn = document.getElementById('sendBtn');
-    sendBtn.disabled = true;
-    sendBtn.innerText = "Sending...";
+    sendBtn.innerText = "Processing...";
 
     try {
         const response = await fetch('/api/chat', {
@@ -19,22 +16,20 @@ async function handleSend() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 messages: [{ role: "user", content: message }],
-                model: "openai/gpt-4o-mini" // Matches one of your dropdown options
+                model: "openai/gpt-4o-mini"
             })
         });
 
         const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || "API call failed");
-        }
-
-        console.log("AI Response:", data);
-        inputField.value = ""; 
-        alert("AI Responded!");
-
+        alert("Response received! Check console for data.");
+        console.log("Data from API:", data);
+        
     } catch (err) {
-        console.error("Fetch Error:", err);
+        alert("Fetch failed: " + err.message);
+    } finally {
+        sendBtn.innerText = "Send";
+    }
+});        console.error("Fetch Error:", err);
         alert("Error: " + err.message);
     } finally {
         sendBtn.disabled = false;
