@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "public": true,
   "routes": [
     { "src": "/api/chat", "dest": "/api/chat.js" },
     { "src": "/api/image", "dest": "/api/image.js" },
