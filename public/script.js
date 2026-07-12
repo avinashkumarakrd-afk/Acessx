@@ -29,13 +29,4 @@ sendBtn.addEventListener('click', async () => {
     } finally {
         sendBtn.innerText = "Send";
     }
-});        console.error("Fetch Error:", err);
-        alert("Error: " + err.message);
-    } finally {
-        sendBtn.disabled = false;
-        sendBtn.innerText = "Send";
-    }
-}
-
-// 3. THIS LINE IS CRITICAL: It connects your button to the function!
-document.getElementById('sendBtn').addEventListener('click', handleSend);
+});
