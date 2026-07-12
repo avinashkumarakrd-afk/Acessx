@@ -1,26 +1,25 @@
 // Ensure you have an element to track your button
-const sendBtn = document.getElementById('send-btn'); 
+const sendBtn = document.getElementById('sendBtn').addEventListener('click', handleSend);
 
 async function handleSend() {
-    // 1. Get the message from your input box
-    const inputField = document.getElementById('user-input'); // Ensure this ID matches your HTML
+    // 1. Match your HTML: id="textInput"
+    const inputField = document.getElementById('textInput'); 
     const message = inputField.value;
     
-    if (!message) return; // Don't send empty messages
+    if (!message) return;
 
-    // 2. Grey out button and show loading
-    const sendBtn = document.querySelector('button'); // Or your specific button ID
+    // 2. Match your HTML: id="sendBtn"
+    const sendBtn = document.getElementById('sendBtn');
     sendBtn.disabled = true;
     sendBtn.innerText = "Sending...";
 
     try {
-        // 3. This is the FETCH block that sends data to your chat.js
         const response = await fetch('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 messages: [{ role: "user", content: message }],
-                model: "openrouter/auto"
+                model: "openai/gpt-4o-mini" // Matches one of your dropdown options
             })
         });
 
@@ -30,18 +29,18 @@ async function handleSend() {
             throw new Error(data.error || "API call failed");
         }
 
-        // 4. Success: Log it and clear the input
         console.log("AI Response:", data);
         inputField.value = ""; 
-        alert("AI Responded! Check console.");
+        alert("AI Responded!");
 
     } catch (err) {
-        // 5. This will pop up on your phone if there is an error
-        console.error("Error:", err);
+        console.error("Fetch Error:", err);
         alert("Error: " + err.message);
     } finally {
-        // 6. Always un-grey the button
         sendBtn.disabled = false;
         sendBtn.innerText = "Send";
     }
 }
+
+// 3. THIS LINE IS CRITICAL: It connects your button to the function!
+document.getElementById('sendBtn').addEventListener('click', handleSend);
